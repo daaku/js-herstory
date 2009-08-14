@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Herstory</title>
+
+    <script src="herstory.js"></script>
+    <script>
+      function hashChange(hash) {
+        var li = document.createElement('li');
+        li.appendChild(document.createTextNode(hash));
+        document.getElementById('load').appendChild(li);
+      }
+
+      window.onload = function() {
+        Herstory.init(hashChange, "jquery_history.html");
+      };
+    </script>
+  </head>
+  <body>
+    <hr>
+    Herstory Load<br>
+    <a href="#i_am_one">load 1</a><br>
+    <a href="#on_step_two">load 2</a><br>
+    <a href="#fin">load 3</a><br>
+    <a href="/404#fin">404 fin</a><br>
+    <a href="http://www.facebook.com/#fin">FB fin</a><br>
+
+    <hr>
+    Loaded:<br>
+    <ol id="load"></ol>
+  </body>
+</html>
