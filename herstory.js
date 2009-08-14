@@ -51,14 +51,14 @@ var Herstory = {
    *                             (defaults to true)
    */
   init: function(callback, src, delegate) {
-    this.current  = location.hash.replace(/\?.*$/, '');
-    this.callback = callback;
+    Herstory.current  = location.hash.replace(/\?.*$/, '');
+    Herstory.callback = callback;
 
-    if (this.msie) {
+    if (Herstory.msie) {
       // To stop the callback firing twice during initilization if no hash
       // present
-      if (this.current === '') {
-        this.current = '#';
+      if (Herstory.current === '') {
+        Herstory.current = '#';
       }
 
       // add hidden iframe for IE
@@ -68,12 +68,12 @@ var Herstory = {
           (src ? ' src="' + src + '"' : '') +
         '></iframe>'
       );
-      this.iframe = div.firstChild;
+      Herstory.iframe = div.firstChild;
 
-      var iframe = this.iframe.contentWindow.document;
+      var iframe = Herstory.iframe.contentWindow.document;
       iframe.open();
       iframe.close();
-      iframe.location.hash = this.current;
+      iframe.location.hash = Herstory.current;
 
       if (typeof delegate == 'undefined' || delegate) {
         // delegate all click events from the document and do some work
@@ -91,17 +91,17 @@ var Herstory = {
           }
         );
       }
-    } else if (this.safari) {
+    } else if (Herstory.safari) {
       // etablish back/forward stacks
-      this.rwStack        = [];
-      this.rwStack.length = history.length;
-      this.ffStack        = [];
-      this.lastLength     = history.length;
-      this.isFirst        = true;
+      Herstory.rwStack        = [];
+      Herstory.rwStack.length = history.length;
+      Herstory.ffStack        = [];
+      Herstory.lastLength     = history.length;
+      Herstory.isFirst        = true;
     }
 
-    this.callback(this.current.replace(/^#/, ''));
-    setInterval(this.check, 100);
+    Herstory.callback(Herstory.current.replace(/^#/, ''));
+    setInterval(Herstory.check, 100);
   },
 
   /**
@@ -140,9 +140,9 @@ var Herstory = {
 
   add: function(hash) {
     // This makes the looping function do something
-    this.rwStack.push(hash);
-    this.ffStack.length = 0; // clear forwardStack (true click occured)
-    this.isFirst = true;
+    Herstory.rwStack.push(hash);
+    Herstory.ffStack.length = 0; // clear forwardStack (true click occured)
+    Herstory.isFirst = true;
   },
 
   check: function() {
@@ -217,39 +217,38 @@ var Herstory = {
     var newhash;
     hash = decodeURIComponent(hash.replace(/\?.*$/, ''));
 
-    if (this.safari) {
+    if (Herstory.safari) {
       newhash = hash;
     } else {
       newhash = '#' + hash;
       location.hash = newhash;
     }
-    this.current = newhash;
+    Herstory.current = newhash;
 
-    if (this.msie) {
-      var iframe = this.iframe.contentWindow.document;
+    if (Herstory.msie) {
+      var iframe = Herstory.iframe.contentWindow.document;
       iframe.open();
       iframe.close();
       iframe.location.hash = newhash;
-      this.lastLength = history.length;
-      this.callback(hash);
-    } else if (this.safari) {
-      this.dontCheck = true;
+      Herstory.lastLength = history.length;
+      Herstory.callback(hash);
+    } else if (Herstory.safari) {
+      Herstory.dontCheck = true;
       // Manually keep track of the history values for Safari
-      this.add(hash);
+      Herstory.add(hash);
 
       // Wait a while before allowing checking so that Safari has time to
       // update the "history" object correctly (otherwise the check loop would
       // detect a false change in hash).
-      var fn = function() {Herstory.dontCheck = false;};
-      window.setTimeout(fn, 200);
-      this.callback(hash);
+      window.setTimeout(function() {Herstory.dontCheck = false;}, 200);
+      Herstory.callback(hash);
       // N.B. "location.hash=" must be the last line of code for Safari as
       // execution stops afterwards.  By explicitly using the "location.hash"
       // command (instead of using a variable set to "location.hash") the URL
       // in the browser and the "history" object are both updated correctly.
       location.hash = newhash;
     } else {
-      this.callback(hash);
+      Herstory.callback(hash);
     }
   }
 };
