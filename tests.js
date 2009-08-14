@@ -65,7 +65,7 @@ test('human', function() {
            render();
          }
        }
-	     Herstory.init(hashChange, "jquery_history.html");
+	     Herstory.init(hashChange, "herstory_iframe.html");
 
        stop();
      });
