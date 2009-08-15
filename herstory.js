@@ -124,8 +124,10 @@ var Herstory = {
         // relative path and a mismatch
         return false;
       } else {
-        var currentPage = window.location.href.substr(
-          0, window.location.href.indexOf('#'));
+        var
+          currentHash = window.location.href.indexOf('#'),
+          currentPage = window.location.href.substr(
+            0, (currentHash < 0 ? undefined : currentHash));
         if (href.substr(0, hashPos) != currentPage) {
           // absolute path and a mismatch
           return false;
