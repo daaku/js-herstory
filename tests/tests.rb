@@ -21,7 +21,7 @@ class Herstory < Test::Unit::TestCase
     sleep 0.1
     browser.link(:id, 'action').click
     sleep 0.2
-    assert('pass' == browser.h2(:id, 'banner').attribute_value('class'))
+    assert('pass' == browser.h2(:id, 'banner').attribute_value('className'))
   end
 
 end
