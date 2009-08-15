@@ -19,7 +19,7 @@ var TestData = [
     message: 'Click the back button and expect "one".'
   },
   {
-    url: 'tests.html#three',
+    url: 'index.html#three',
     expect: 'three',
     message: 'Click here and expect "three".'
   },
@@ -61,7 +61,7 @@ test(
       }
       var html;
       if (step.url) {
-        html = '<a href="' + step.url + '">' + step.message + '</a>';
+        html = '<a id="action" href="' + step.url + '">' + step.message + '</a>';
       } else {
         html = step.message;
       }
