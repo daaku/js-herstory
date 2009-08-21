@@ -6,7 +6,7 @@ class Herstory < Test::Unit::TestCase
 
   def test_qunit
     browser = Watir::Browser.new
-    browser.goto('http://dev.streamdiff.com/herstory/tests/index.html')
+    browser.goto('http://daaku.org:8080/tests/index.html')
     browser.link(:id, 'action').click
     sleep 0.1
     browser.link(:id, 'action').click
